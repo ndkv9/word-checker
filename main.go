@@ -33,18 +33,28 @@ func main() {
 		wordList[scanner.Text()] = struct{}{}
 	}
 
-	fmt.Print("> ")
-	fmt.Scan(&check)
-
-	if _, ok := wordList[strings.ToLower(check)]; ok {
-		fmt.Println("True")
-	} else {
-		fmt.Println("False")
-	}
-
 	// handle err during scanning the file
 	if err := scanner.Err(); err != nil {
 		log.Panic(err)
+	}
+
+	for {
+		fmt.Print("> ")
+		fmt.Scan(&check)
+
+		if check == "exit" {
+			fmt.Println("Bye!")
+			break
+		}
+
+		if _, ok := wordList[strings.ToLower(check)]; ok {
+			for range check {
+				fmt.Print("*")
+			}
+		} else {
+			fmt.Println(check)
+		}
+		fmt.Println("")
 	}
 
 }
